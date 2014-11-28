@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 #define		SUCCESS		0
 #define		FAILURE		-1
@@ -18,7 +17,7 @@ double	combinationCalculation(int depth, int location, double* input);
 int main()
 {
 	int empty,loop, loop1, depth;
-	double sum, tmp, coefficient, *constant, try1=0, try2=0;
+	double sum, tmp, coefficient, *constant;
 	double item[6] = {0,0,0,0,0,0};
 
 	constant = malloc(5 * sizeof(double));
