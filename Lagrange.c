@@ -21,16 +21,11 @@ int main()
 	double item[6] = {0,0,0,0,0,0};
 
 	constant = malloc(5 * sizeof(double));
-	/*for (loop = 0; loop < 5; loop++)
-	{
-	printf("%f\n", constant[loop]);
-	}*/
+
 	for (empty = 0; empty < 6; empty++)
 	{
 		coefficient = CoefficientCalculation(empty);
 		fillItem(empty, constant); /* Withdraw a cell out of the array */
-		//tmp = combinationCalculation(0, 0, constant);
-		//printf("The coefficient is %lf  %lf\n", coefficient, tmp);
 
 		/* Add coefficient of each order to the array */
 		for (loop = 0; loop < 6; loop++)
@@ -96,12 +91,9 @@ double	combinationCalculation(int depth, int location, double* input)
 
 	if (input[location] == 0)
 	{
-		//printf("xxx0\n");
 		return 0;
 	}
 	
-	//if (depth > 0)
-	//{
 	result = input[location];
 	depth--;
 	if (depth == 0)
@@ -120,15 +112,8 @@ double	combinationCalculation(int depth, int location, double* input)
 			else
 				break;
 		}
-	}
-		
+	}		
 	result *= sum;
-	/*}
-	else
-	{
-		result = 1;
-		printf("Hi\n");
-	}*/
 
 	return result;
 }
