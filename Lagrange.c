@@ -98,7 +98,6 @@ double	combinationCalculation(int depth, int location, double* input)
 	depth--;
 	if (depth == 0)
 	{
-		//printf("bingo : %d\n", location);
 		return result;
 	}		
 	else
