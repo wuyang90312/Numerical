@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define		SUCCESS		0
 #define		FAILURE		-1
 
-//static const double X_COORD[6] = { 0, 0.2, 0.4, 0.6, 0.8, 1.0 };
-//static const double Y_COORD[6] = { 0, 14.7, 36.5, 71.7, 121.4, 197.4 };
+static const double X_COORD[6] = { 0, 0.2, 0.4, 0.6, 0.8, 1.0 };
+static const double Y_COORD[6] = { 0, 14.7, 36.5, 71.7, 121.4, 197.4 };
 
-static const double X_COORD[6] = { 0, 1.3, 1.4, 1.7, 1.8, 1.9 };
-static const double Y_COORD[6] = { 0, 540.6, 1062.8, 8687.4, 13924.3, 22650.2 };
+//static const double X_COORD[6] = { 0, 1.3, 1.4, 1.7, 1.8, 1.9 };
+//static const double Y_COORD[6] = { 0, 540.6, 1062.8, 8687.4, 13924.3, 22650.2 };
 
 double CoefficientCalculation(int index);
 void fillItem(int index, double* target);
@@ -17,7 +18,7 @@ double	combinationCalculation(int depth, int location, double* input);
 int main()
 {
 	int empty,loop, loop1, depth;
-	double sum, tmp, coefficient, *constant;
+	double sum, tmp, coefficient, *constant, try1=0, try2=0;
 	double item[6] = {0,0,0,0,0,0};
 
 	constant = malloc(5 * sizeof(double));
@@ -46,7 +47,7 @@ int main()
 		}
 	}
 
-	printf("Polynomial is: %fX^5 + %fX^4 + %fX^3 + %fX^2 + %fX +%f", item[0], item[1], item[2], item[3], item[4], item[5]);
+	printf("Polynomial is:\n%fX^5 + %fX^4 + %fX^3 + %fX^2 + %fX +%f", item[0], item[1], item[2], item[3], item[4], item[5]);
 	return SUCCESS;
 }
 
@@ -76,7 +77,7 @@ void fillItem(int index, double* target)
 			continue;
 		else
 		{
-			target[count] = X_COORD[loop];
+			target[count] = -X_COORD[loop];
 			count++;
 		}
 	}
