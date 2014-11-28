@@ -4,8 +4,11 @@
 #define		SUCCESS		0
 #define		FAILURE		-1
 
-static const double X_COORD[6] = { 0, 0.2, 0.4, 0.6, 0.8, 1.0 };
-static const double Y_COORD[6] = { 0, 14.7, 36.5, 71.7, 121.4, 197.4 };
+//static const double X_COORD[6] = { 0, 0.2, 0.4, 0.6, 0.8, 1.0 };
+//static const double Y_COORD[6] = { 0, 14.7, 36.5, 71.7, 121.4, 197.4 };
+
+static const double X_COORD[6] = { 0, 1.3, 1.4, 1.7, 1.8, 1.9 };
+static const double Y_COORD[6] = { 0, 540.6, 1062.8, 8687.4, 13924.3, 22650.2 };
 
 double CoefficientCalculation(int index);
 void fillItem(int index, double* target);
