@@ -56,7 +56,7 @@ int main()
 		coefficient = -2.0 / pow(x2 - x1, 3);
 		polynomialGeneration(equation, constant, a2*coefficient);
 
-		printf("Polynomial is:\n %fX^3 + %fX^2 + %fX +%f\n", equation[0], equation[1], equation[2], equation[3]);
+		printf("Polynomial in subdomain %d is:\n%fX^3 + %fX^2 + %fX +%f\n", iteration+1, equation[0], equation[1], equation[2], equation[3]);
 		printf("\n");
 		cleanUp(3, equation);
 	}
