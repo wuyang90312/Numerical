@@ -35,10 +35,10 @@ int main()
 		field = calculateField(flux);
 		offset = 2.3873* pow(10, 9) *flux + 5 * pow(10, -3) * field - 8000;
 		ratio = calculateRatio(offset);
-		printf("The ratio is %lf, offset is %lf,The flux is %.8lf, the field is %lf, the derivative is %lf\n", ratio, offset, flux, field, derivative);
+		printf("The ratio is %lf, offset is %lf,The flux is %.12lf, the field is %lf, the derivative is %lf\n", ratio, offset, flux, field, derivative);
 	}
 
-	printf("The ratio is %12lf, The flux is %.8lf", ratio, flux);
+	printf("The ratio is %12lf, The flux is %.12lf", ratio, flux);
 	return SUCCESS;
 }
 
@@ -53,12 +53,12 @@ double DerivativeValue(double flux)
 	if (density >= 0 && density < 1)
 	{
 		index = floor(density / 0.2);
-		result = 1 / DERIVATIVE[index];
+		result =  DERIVATIVE[index];
 	}
 	else if (density >= 1 && density < 1.9)
 	{
 		index = 5 + floor((density - 1) / 0.1);
-		result = 1/DERIVATIVE[index];
+		result = DERIVATIVE[index];
 	}
 	else
 		result = -1;
