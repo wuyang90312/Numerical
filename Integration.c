@@ -14,9 +14,9 @@ int main()
 	int loop, SLICENUMBER;
 	double real, error, init, end, slice, value;
 
-	real = cos(0) - cos(1);
+	real = -1;
 	//printf("The real integration value is %lf\n", real);
-	for (SLICENUMBER = 1; SLICENUMBER <= 20; SLICENUMBER++)
+	for (SLICENUMBER = 10; SLICENUMBER <= 200; SLICENUMBER+=10)
 	{
 		value = 0;
 		slice = (double)LENGTH / SLICENUMBER;
@@ -29,9 +29,9 @@ int main()
 		error = value - real;
 		if (error < 0)
 			error = -error;
-		//printf("%d slices: The integration value is %lf  with error %.12lf\n", SLICENUMBER, value, error);
+		printf("%d slices: The integration value is %lf  with error %.12lf\n", SLICENUMBER, value, error);
 		//printf("%.12lf\n", log10(error));
-		printf("%lf\n", log10(SLICENUMBER));
+		//printf("%lf\n", log10(SLICENUMBER));
 	}
 	
 
@@ -45,7 +45,7 @@ double OnePointGauss(double init, double end)
 	weight = end - init;
 	position = (pow(end, 2) - pow(init, 2)) / (2 * weight);
 
-	result = weight*sin(position);
+	result = weight*log(position);
 
 	return result;
 }
