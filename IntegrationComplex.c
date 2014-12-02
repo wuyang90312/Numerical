@@ -14,7 +14,7 @@ int main()
 	int loop, SLICENUMBER;
 	double real, error, init, end, slice, value;
 
-	real = -2.66616;
+	real = -1;
 	printf("The real integration value is %lf\n", real);
 	for (SLICENUMBER = 10; SLICENUMBER <= 10; SLICENUMBER+=10)
 	{
@@ -24,7 +24,7 @@ int main()
 		{
 			init = INITIALPOINT + slice*loop;
 			end = init + slice;
-			value += OnePointGauss(init, end);
+			value += ComplexGauss(init, end);
 		}
 		error = value - real;
 		if (error < 0)
@@ -49,7 +49,7 @@ double ComplexGauss(double init, double end)
 	position = init+offset/2;
 	offset1 = 0.774597*offset / 2;
 
-	result = weight*log(0.2*sin(position)) + weight1*log(0.2*sin(position - offset1)) + weight1*log(0.2*sin(position + offset1));
+	result = weight*log(position) + weight1*log(position - offset1) + weight1*log(position + offset1);
 
 	return result;
 }
