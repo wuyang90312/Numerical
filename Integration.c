@@ -14,7 +14,7 @@ int main()
 	int loop, SLICENUMBER;
 	double real, error, init, end, slice, value;
 
-	real = -1;
+	real = -2.66616;
 	//printf("The real integration value is %lf\n", real);
 	for (SLICENUMBER = 10; SLICENUMBER <= 200; SLICENUMBER+=10)
 	{
@@ -45,7 +45,7 @@ double OnePointGauss(double init, double end)
 	weight = end - init;
 	position = (pow(end, 2) - pow(init, 2)) / (2 * weight);
 
-	result = weight*log(position);
+	result = weight*log(0.2*sin(position));
 
 	return result;
 }
