@@ -5,7 +5,8 @@
 #define		SUCCESS		0
 #define		FAILURE		-1
 #define		CROSS_SECTION_AREA	0.0001
-#define		INITIAL_OFFSET		8000
+#define		INITIAL_OFFSET		8000  /* N*I */
+#define		COEFFICIENT  39788737.72
 
 static const double B_COORD[15] = { 0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9 };
 static const double H_COORD[15] = { 0, 14.7, 36.5, 71.7, 121.4, 197.4, 256.2, 348.7, 540.6, 1062.8, 2318, 4781, 8687.4, 13924.3, 22650.2 };
@@ -26,19 +27,16 @@ int main()
 	while (ratio >= 0.000001)
 	{
 		derivative = DerivativeValue(flux);
-		if ( derivative == -1)
-		{
-			printf("ERROR: OUT OF RANGE OF BH TABLE\n");
-			return FAILURE;
-		}
-		flux -= offset / (2.8373*pow(10, 9) + 50 * derivative);
+		//flux -= offset / (COEFFICIENT + 3000 * derivative); /* Newton-Raphson */
+		flux -= offset / 3 / COEFFICIENT;  /* Successive */
 		field = calculateField(flux);
-		offset = 2.3873* pow(10, 9) *flux + 5 * pow(10, -3) * field - 8000;
+		offset = COEFFICIENT *flux + 0.3 * field - INITIAL_OFFSET;
 		ratio = calculateRatio(offset);
-		//printf("The ratio is %lf, offset is %lf,The flux is %.12lf, the field is %lf, the derivative is %lf\n", ratio, offset, flux, field, derivative);
+		printf("The ratio is %lf, offset is %lf,The flux is %.12lf, the field is %lf, the derivative is %lf\n", 
+			ratio, offset, flux, field, derivative);
 	}
 
-	printf("The ratio is %12lf, The flux is %.12lf", ratio, flux);
+	printf("The MMF is: %lf", (COEFFICIENT *flux + 0.3 * field));
 	return SUCCESS;
 }
 
@@ -55,13 +53,13 @@ double DerivativeValue(double flux)
 		index = floor(density / 0.2);
 		result =  DERIVATIVE[index];
 	}
-	else if (density >= 1 && density < 1.9)
+	else if (density >= 1 && density <= 1.9)
 	{
 		index = 5 + floor((density - 1) / 0.1);
 		result = DERIVATIVE[index];
 	}
-	else
-		result = -1;
+	else /* Fake the derivative after B = 1.9 */
+		result = DERIVATIVE[13];
 	return result;
 }
 
@@ -83,8 +81,8 @@ double calculateField(double flux)
 		index = 5 + floor((density - 1) / 0.1);
 		field = H_COORD[index] + (density - B_COORD[index])*DERIVATIVE[index];
 	}
-	else
-		field = -1;
+	else /* Fake the equation after B = 1.9 */
+		field = H_COORD[14]+(density-B_COORD[14])*DERIVATIVE[13];
 
 	return field;
 }
