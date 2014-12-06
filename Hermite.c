@@ -52,8 +52,10 @@ int main()
 		fillItem((3 * x2 - x1) / 2, x1, x1, constant);
 		coefficient = -2.0 / pow(x2 - x1, 3);
 		polynomialGeneration(equation, constant, a2*coefficient);
-		printf("Polynomial in subdomain [%lf, %lf] is:\n%fX^3 + %fX^2 + %fX +%f\n", x1, x2, equation[0], equation[1], equation[2], equation[3]);
-		printf("The starting point is %lf, the end point is %lf\n",realizePolynomial(x1, equation),realizePolynomial(x2, equation));
+		printf("Polynomial in subdomain [%lf, %lf] is:\n%fX^3 + %fX^2 + %fX +%f\n", 
+		x1, x2, equation[0], equation[1], equation[2], equation[3]);
+		printf("The starting point is %lf, the end point is %lf\n",
+		realizePolynomial(x1, equation),realizePolynomial(x2, equation));
 		printf("The derivative is %fX^2 + %fX +%f\n", 3*equation[0], 2*equation[1], equation[2]);
 		delta = pow(2 * equation[1], 2) - 4 * (3 * equation[0])*equation[2];
 		printf("The delta is %lf\n", delta);
