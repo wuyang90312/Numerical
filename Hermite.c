@@ -61,7 +61,9 @@ int main()
 		printf("The delta is %lf\n", delta);
 		if (delta > 0)
 		{
-			printf("Two solution points: %lf, %lf\n", (-2 * equation[1] - sqrt(delta) )/ (6 * equation[0]), (-2 * equation[1] + sqrt(delta)) / (6 * equation[0]));
+			printf("Two solution points: %lf, %lf\n", 
+			(-2 * equation[1] - sqrt(delta) )/ (6 * equation[0]), 
+			(-2 * equation[1] + sqrt(delta)) / (6 * equation[0]));
 		}
 		printf("\n");
 		cleanUp(3, equation);
