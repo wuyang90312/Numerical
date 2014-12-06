@@ -35,7 +35,7 @@ int main()
 		field = calculateField(flux);
 		offset = 2.3873* pow(10, 9) *flux + 5 * pow(10, -3) * field - 8000;
 		ratio = calculateRatio(offset);
-		printf("The ratio is %lf, offset is %lf,The flux is %.12lf, the field is %lf, the derivative is %lf\n", ratio, offset, flux, field, derivative);
+		//printf("The ratio is %lf, offset is %lf,The flux is %.12lf, the field is %lf, the derivative is %lf\n", ratio, offset, flux, field, derivative);
 	}
 
 	printf("The ratio is %12lf, The flux is %.12lf", ratio, flux);

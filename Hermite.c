@@ -14,11 +14,12 @@ void fillItem(double a, double b, double c, double* target);
 double	combinationCalculation(int depth, int location, double* input);
 void polynomialGeneration(double* item, double* constant, double coefficient);
 void cleanUp(int length, double* target);
+double realizePolynomial(double variable, double* equation);
 
 int main()
 {
 	int		loop, iteration = 0;
-	double *derivative, a1, b1, a2, b2,x1,x2, coefficient, *equation;
+	double *derivative, a1, b1, a2, b2,x1,x2, coefficient, *equation, delta;
 	double item[6] = { 0, 0, 0, 0, 0, 0 }, constant[3] = {0, 0, 0};
 
 	derivative = malloc(6*sizeof(double)); /* Declare the memory location for the derviative value of each point*/
@@ -37,31 +38,44 @@ int main()
 
 		/* Get the value of the constant */
 		coefficient = 1 / pow(x1 - x2, 2);
-
 		/* Get the coefficient of V_1 */
 		fillItem(x1, x2, x2, constant);
 		polynomialGeneration(equation, constant, b1*coefficient);
-		
 		/* Get the coefficient of V_2 */
 		fillItem(x1, x1, x2, constant);
 		polynomialGeneration(equation, constant, b2*coefficient);
-		
 		/* Get the coefficient of U_1 */
 		fillItem((3 * x1 - x2) / 2, x2, x2, constant);
 		coefficient = -2.0 / pow(x1 - x2, 3);
 		polynomialGeneration(equation, constant, a1*coefficient);
-		
 		/* Get the coefficient of U_2 */
 		fillItem((3 * x2 - x1) / 2, x1, x1, constant);
 		coefficient = -2.0 / pow(x2 - x1, 3);
 		polynomialGeneration(equation, constant, a2*coefficient);
-
-		printf("Polynomial in subdomain %d is:\n%fX^3 + %fX^2 + %fX +%f\n", iteration+1, equation[0], equation[1], equation[2], equation[3]);
+		printf("Polynomial in subdomain [%lf, %lf] is:\n%fX^3 + %fX^2 + %fX +%f\n", x1, x2, equation[0], equation[1], equation[2], equation[3]);
+		printf("The starting point is %lf, the end point is %lf\n",realizePolynomial(x1, equation),realizePolynomial(x2, equation));
+		printf("The derivative is %fX^2 + %fX +%f\n", 3*equation[0], 2*equation[1], equation[2]);
+		delta = pow(2 * equation[1], 2) - 4 * (3 * equation[0])*equation[2];
+		printf("The delta is %lf\n", delta);
+		if (delta > 0)
+		{
+			printf("Two solution points: %lf, %lf\n", (-2 * equation[1] - sqrt(delta) )/ (6 * equation[0]), (-2 * equation[1] + sqrt(delta)) / (6 * equation[0]));
+		}
 		printf("\n");
 		cleanUp(3, equation);
 	}
 
 	return SUCCESS;
+}
+
+double realizePolynomial(double variable, double* equation)
+{
+	int loop;
+	double result = 0;
+
+	for (loop = POLYNOMIAL_DEPTH; loop >= 0; loop--)
+		result += equation[POLYNOMIAL_DEPTH-loop] * pow(variable, loop);
+	return result;
 }
 
 /* Give the derivative values of 6 points */
@@ -94,6 +108,7 @@ void fillItem(double a, double b, double c, double* target)
 	target[2] = -c;
 
 }
+
 double	combinationCalculation(int depth, int location, double* input)
 {
 	int loop;
@@ -103,16 +118,12 @@ double	combinationCalculation(int depth, int location, double* input)
 		return 1;
 
 	if (input[location] == 0)
-	{
 		return 0;
-	}
 	
 	result = input[location];
 	depth--;
 	if (depth == 0)
-	{
-		return result;
-	}		
+		return result;		
 	else
 	{
 		for (loop = location + 1; loop < POLYNOMIAL_DEPTH; loop++)
@@ -132,7 +143,8 @@ double	combinationCalculation(int depth, int location, double* input)
 
 void polynomialGeneration(double* item, double* constant, double coefficient)
 {
-	int loop, sum, depth, loop1;
+	int loop, depth, loop1;
+	double sum;
 
 	/* Add coefficient of each order to the array */
 	for (loop = 0; loop <= POLYNOMIAL_DEPTH; loop++)
